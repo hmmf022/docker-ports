@@ -33,6 +33,7 @@ docker-ports
 
 - `--all`: 停止中コンテナも含めて表示
 - `--json`: JSON形式で出力
+- `--version`: バージョン情報を表示
 
 ## Examples
 
@@ -62,5 +63,13 @@ docker-ports --json
   }
 ]
 ```
+
+## Install from Releases
+
+GitHub Releases の Assets から自分の環境向けアーカイブをダウンロードして展開してください。
+
+- Linux/macOS: `docker-ports_<version>_<os>_<arch>.tar.gz`
+- Windows: `docker-ports_<version>_<os>_<arch>.zip`
+- チェックサム: `checksums.txt` (SHA256)
 
 [License](./LICENSE)

@@ -9,10 +9,22 @@ import (
 	"docker-ports/internal/output"
 )
 
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+)
+
 func main() {
 	showAll := flag.Bool("all", false, "Include stopped containers")
 	asJSON := flag.Bool("json", false, "Output as JSON")
+	showVersion := flag.Bool("version", false, "Print version information")
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Printf("docker-ports version=%s commit=%s date=%s\n", version, commit, date)
+		return
+	}
 
 	containers, err := docker.ListPublishedPorts(*showAll)
 	if err != nil {

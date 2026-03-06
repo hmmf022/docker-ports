@@ -33,6 +33,7 @@ docker-ports
 
 - `--all`: Include stopped containers
 - `--json`: Output in JSON format
+- `--version`: Print version information
 
 ## Examples
 
@@ -62,5 +63,13 @@ Example output:
   }
 ]
 ```
+
+## Install from Releases
+
+Download and extract the archive for your platform from GitHub Releases assets.
+
+- Linux/macOS: `docker-ports_<version>_<os>_<arch>.tar.gz`
+- Windows: `docker-ports_<version>_<os>_<arch>.zip`
+- Checksums: `checksums.txt` (SHA256)
 
 [License](./LICENSE)
