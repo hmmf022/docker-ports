@@ -1,13 +1,13 @@
-[English README](./README.en.md)
+[日本語 README](./README.md)
 
 # docker-ports
 
-`docker ps` から、`docker exec` で使うコンテナ名と localhost からアクセスできる公開ポートを一覧表示するCLIです。
+CLI tool that lists container names (for `docker exec`) and localhost-accessible published ports from `docker ps`.
 
 ## Requirements
 
 - Go 1.22+
-- Docker CLI (`docker`) が利用可能であること
+- Docker CLI (`docker`) must be available
 
 ## Usage
 
@@ -23,7 +23,7 @@ go run ./cmd/docker-ports
 go install ./cmd/docker-ports
 ```
 
-インストール後:
+After installation:
 
 ```bash
 docker-ports
@@ -31,8 +31,8 @@ docker-ports
 
 ## Options
 
-- `--all`: 停止中コンテナも含めて表示
-- `--json`: JSON形式で出力
+- `--all`: Include stopped containers
+- `--json`: Output in JSON format
 
 ## Examples
 
@@ -40,7 +40,7 @@ docker-ports
 docker-ports
 ```
 
-出力例:
+Example output:
 
 ```text
 NAME   LOCAL_PORTS
@@ -52,7 +52,7 @@ db     5432,15432
 docker-ports --json
 ```
 
-出力例:
+Example output:
 
 ```json
 [
