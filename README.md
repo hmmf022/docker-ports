@@ -32,6 +32,7 @@ docker-ports
 ## Options
 
 - `--all`: 停止中コンテナも含めて表示
+- `--name`: コンテナ名で絞り込み（部分一致・大文字小文字を区別しない）
 - `--json`: JSON形式で出力
 - `--version`: バージョン情報を表示
 
@@ -47,6 +48,18 @@ docker-ports
 NAME   LOCAL_PORTS
 api    8080
 db     5432,15432
+```
+
+```bash
+docker-ports --name api
+```
+
+出力例:
+
+```text
+NAME          LOCAL_PORTS
+api           8080
+my-api-worker 18080
 ```
 
 ```bash

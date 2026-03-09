@@ -32,6 +32,7 @@ docker-ports
 ## Options
 
 - `--all`: Include stopped containers
+- `--name`: Filter by container name (case-insensitive substring)
 - `--json`: Output in JSON format
 - `--version`: Print version information
 
@@ -47,6 +48,18 @@ Example output:
 NAME   LOCAL_PORTS
 api    8080
 db     5432,15432
+```
+
+```bash
+docker-ports --name api
+```
+
+Example output:
+
+```text
+NAME          LOCAL_PORTS
+api           8080
+my-api-worker 18080
 ```
 
 ```bash

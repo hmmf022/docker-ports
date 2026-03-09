@@ -17,6 +17,7 @@ var (
 
 func main() {
 	showAll := flag.Bool("all", false, "Include stopped containers")
+	nameFilter := flag.String("name", "", "Filter containers by name (case-insensitive substring)")
 	asJSON := flag.Bool("json", false, "Output as JSON")
 	showVersion := flag.Bool("version", false, "Print version information")
 	flag.Parse()
@@ -26,7 +27,7 @@ func main() {
 		return
 	}
 
-	containers, err := docker.ListPublishedPorts(*showAll)
+	containers, err := docker.ListPublishedPorts(*showAll, *nameFilter)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

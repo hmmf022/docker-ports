@@ -27,7 +27,7 @@ type ContainerPorts struct {
 	LocalPorts []int  `json:"local_ports"`
 }
 
-func ListPublishedPorts(all bool) ([]ContainerPorts, error) {
+func ListPublishedPorts(all bool, nameFilter string) ([]ContainerPorts, error) {
 	args := []string{"ps"}
 	if all {
 		args = append(args, "-a")
@@ -70,10 +70,26 @@ func ListPublishedPorts(all bool) ([]ContainerPorts, error) {
 		return nil, fmt.Errorf("failed reading docker output: %w", err)
 	}
 
+	results = filterContainersByName(results, nameFilter)
 	sort.Slice(results, func(i, j int) bool {
 		return results[i].Name < results[j].Name
 	})
 	return results, nil
+}
+
+func filterContainersByName(rows []ContainerPorts, query string) []ContainerPorts {
+	if query == "" {
+		return rows
+	}
+
+	normalizedQuery := strings.ToLower(query)
+	filtered := make([]ContainerPorts, 0, len(rows))
+	for _, row := range rows {
+		if strings.Contains(strings.ToLower(row.Name), normalizedQuery) {
+			filtered = append(filtered, row)
+		}
+	}
+	return filtered
 }
 
 func extractPublishedHostPorts(portsField string) []int {

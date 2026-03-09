@@ -50,3 +50,50 @@ func TestExtractPublishedHostPorts(t *testing.T) {
 		})
 	}
 }
+
+func TestFilterContainersByName(t *testing.T) {
+	t.Parallel()
+
+	rows := []ContainerPorts{
+		{Name: "api", LocalPorts: []int{8080}},
+		{Name: "my-API", LocalPorts: []int{18080}},
+		{Name: "db", LocalPorts: []int{5432}},
+	}
+
+	tests := []struct {
+		name  string
+		query string
+		want  []ContainerPorts
+	}{
+		{
+			name:  "empty query returns all",
+			query: "",
+			want:  rows,
+		},
+		{
+			name:  "substring case insensitive",
+			query: "api",
+			want: []ContainerPorts{
+				{Name: "api", LocalPorts: []int{8080}},
+				{Name: "my-API", LocalPorts: []int{18080}},
+			},
+		},
+		{
+			name:  "no matches",
+			query: "cache",
+			want:  []ContainerPorts{},
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := filterContainersByName(rows, tt.query)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Fatalf("filterContainersByName(%v, %q) = %v, want %v", rows, tt.query, got, tt.want)
+			}
+		})
+	}
+}
